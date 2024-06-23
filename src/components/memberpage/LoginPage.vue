@@ -69,13 +69,17 @@ export default {
         return;
       }
 
-      axios.post("/savemoney/login", state.members).then(({data}) => {
+      axios.post("/savemoney/login", state.members).then((response) => {
 
-        if(data == null || data==undefined || data == ""){ // 로그인 성공
+        alert(response.data.msg);
+
+        if(response.data.msg == null){ // 로그인 성공
+
            router.push('/');
+           
         }
         else{
-          msgState.msg = data;
+          msgState.msg = response.data.msg;
         }
 
       }).catch(error =>{

@@ -57,6 +57,7 @@
 </template>
 
 <script>
+import store from '@/scripts/store';
 import axios from 'axios';
 import { reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
@@ -93,6 +94,8 @@ export default {
         msg : ""
       }
     })
+
+    alert(store.state.account.memberId);
 
     // 회원가입 함수를 정의합니다.
     const joinMember = () => {
