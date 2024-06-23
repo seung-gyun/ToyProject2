@@ -2,8 +2,7 @@
   <div class="form-signin w-100 m-auto">
     <p class="mt-5 mb-3 text-body-secondary"> ※ Press Your Id  &  PassWord  </p>  
     <div class="form-floating">       
-        <input type="text" class="form-control" id="memberId" name="memberId" ref="memberIdInput" v-model="state.members.memberid"
-        @keyup.enter="submit()">
+        <input type="text" class="form-control" id="memberId" name="memberId" ref="memberIdInput" v-model="state.members.memberId" @keyup.enter="submit()">
 
         <label for="floatingInput">ID</label>
       </div>
@@ -12,7 +11,9 @@
         @keyup.enter="submit()">
         <label for="floatingPassword">Password</label>
       </div>
-
+      <div class="msg">
+        {{ msgState.msg }}
+      </div>
       <div class="form-check text-start my-3">
         <label class="form-check-label" for="flexCheckDefault">
           <router-link to="/joinmember">회원가입</router-link>&nbsp;&nbsp;
@@ -29,6 +30,8 @@
 <script>
 import axios from 'axios';
 import { reactive } from 'vue';
+import { useRouter } from 'vue-router';
+
 
 // import axios from 'axios';
 // import { reactive } from 'vue';
@@ -39,6 +42,8 @@ export default {
 
   setup(){
 
+    const router = useRouter();
+
     const state = reactive({
       members : {
         memberId : "",
@@ -46,6 +51,11 @@ export default {
       }
     })
 
+    const msgState = reactive({
+      reponsemsg : {
+        msg : ""
+      }
+    })
    
     const submit = ()=>{
 
@@ -59,9 +69,14 @@ export default {
         return;
       }
 
-      axios.post("/savemoney/login", state.members).then((res) => {
+      axios.post("/savemoney/login", state.members).then(({data}) => {
 
-      console.log(res);
+        if(data == null || data==undefined || data == ""){ // 로그인 성공
+           router.push('/');
+        }
+        else{
+          msgState.msg = data;
+        }
 
       }).catch(error =>{
         console.error("error", error);
@@ -69,7 +84,7 @@ export default {
 
     }
 
-    return {state, submit}
+    return {state, submit, msgState}
 
 
   }
