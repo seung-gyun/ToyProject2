@@ -75,7 +75,7 @@ export default {
         if(response.data.msg == null){ // 로그인 성공
 
           //store값에 저장하겠다.
-          store.commit('setAccount', response.data.memberId);
+          store.commit('setAccount', {memberId: response.data.memberId, remainingTimeInSeconds : response.data.remainingTimeInSeconds});
           sessionStorage.setItem("id",response.data.memberId);
 
            router.push('/');

@@ -22,9 +22,11 @@ export default {
   setup(){
     
     const check = ()=>{
-      axios.get("/savemoney/check").then(({data})=>{
+      axios.get("/savemoney/check").then((response)=>{
           
-          store.commit("setAccount", data || 0);
+
+
+          store.commit('setAccount', {memberId: response.data.memberId, remainingTime : response.data.remainingTime});
       
       })
       
@@ -32,6 +34,7 @@ export default {
 
     const route = useRoute();
 
+    //router의 변화를 감지하네
     watch(route, ()=>{
       check();
     })
