@@ -4,15 +4,15 @@
     <div class="form-floating">       
       </div>
       <div class="form-floating">
-        <input type="text" class="form-control" id="memberId" name="memberId" v-model = "state.form.memberId"
+        <input type="text" class="form-control" id="email" name="email" v-model = "state.form.email"
         @keyup.enter="submit()">
-        <label for="floatingPassword">Id</label>
+        <label for="floatingPassword">My-Email</label>
       </div>
       
       <div class="form-floating">
-        <input type="text" class="form-control" id="email" name="email" v-model = "state.form.email"
+        <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" v-model = "state.form.phoneNumber"
         @keyup.enter="submit()">
-        <label for="floatingInput">Email</label>
+        <label for="floatingInput">phone-Number</label>
       </div>
       <div class="msg">
         {{ msgState.msg }}
@@ -21,11 +21,10 @@
       <div class="form-check text-start my-3">
         <label class="form-check-label" for="flexCheckDefault">
           <router-link to="/joinmember">회원가입</router-link>&nbsp;&nbsp;
-          <router-link to="/findPwdPage">아이디 찾기</router-link>&nbsp;&nbsp;
-          <router-link to="/findPwdPage">홈으로</router-link>&nbsp;&nbsp;
+          <router-link to="/findPwdPage">비밀번호 찾기</router-link>&nbsp;&nbsp;
         </label>
       </div>
-      <button @click="submit()" class="btn btn-primary w-100 py-2" type="submit">Reset-Pwd</button>
+      <button @click="submit()" class="btn btn-primary w-100 py-2" type="submit">Find-Id</button>
       
   </div>
   <hr class="my-4">
@@ -45,8 +44,8 @@ export default {
     // 반응적 상태 생성
     const state = reactive({
       form: {
-        memberId: '',
         email: '',
+        phoneNumber: ''
       }
     });
 
@@ -58,12 +57,13 @@ export default {
 
     // submit 함수 정의
     const submit = () => {
-      axios.get("/savemoney/findPwd", { params: state.form })
+      axios.get("/savemoney/findId", { params: state.form })
         .then(({ data }) => {
           if(data!=0){
            
             alert("test");
-            msgState.msg = "초기화된 비밀번호는 " + data + "입니다.";
+
+            msgState.msg = "회원의 정보는 " + data + "입니다.";
 
           }else{
 

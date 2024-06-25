@@ -26,7 +26,6 @@
             <li class="nav-item"><a class="nav-link" href="#">Support</a></li>
             <router-link to="/login" v-if="!store.state.account.memberId"><li class="nav"><a class="nav-link" href="#">Login</a></li></router-link>
             <a  @click="logout()" v-else><li class="nav"><a class="nav-link" href="#">Logout</a></li></a>
-            <li class="nav-item" v-if="store.state.account.remainingTime !== null">{{ constTime }}</li>
             <!-- <li class="nav-item"><a class="nav-link" href="#">
               <svg class="bi" width="24" height="24"><use xlink:href="#cart"></use></svg>
             </a></li> -->
@@ -41,17 +40,12 @@
 import router from '@/scripts/router';
 import store from '@/scripts/store';
 import axios from 'axios';
-import { ref } from 'vue';
-
+// import { computed } from 'vue';
 
 export default {
   
-  
-
   name : 'AppHeader',
   setup(){
-
-    const constTime = ref(0);
 
     const logout = ()=>{
 
@@ -65,34 +59,7 @@ export default {
 
     }
 
-    alert(store.state.account.memberId);
-
-    if(store.state.account.memberId !=undefined && store.state.account.memberId !=0)
-
-    alert("test");
-
-      setInterval(() => {
-
-
-        const totalTime = store.state.account.remainingTime--;
-        const minutes = Math.floor(totalTime/60);
-        const seconds = Math.floor(totalTime%60);
-
-        if(store.state.account.remainingTime)
-          constTime.value = minutes + " : " + seconds;
-
-        //시간되면 로그아웃처리
-        if(totalTime==0) {
-          
-          logout();
-          alert("사용시간이 만료되어서 로그아웃 되었습니다.");
-
-        }
-
-
-      }, 1000);
-
-    return { logout, store, constTime };
+    return { logout, store};
 
   }
 
