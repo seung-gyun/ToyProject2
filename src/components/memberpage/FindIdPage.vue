@@ -61,13 +61,9 @@ export default {
         .then(({ data }) => {
           if(data!=0){
            
-            alert("test");
-
             msgState.msg = "회원의 정보는 " + data + "입니다.";
 
           }else{
-
-            alert("test11");
 
             msgState.msg = "회원정보가 없습니다.";
 

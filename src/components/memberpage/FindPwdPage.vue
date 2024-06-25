@@ -21,8 +21,8 @@
       <div class="form-check text-start my-3">
         <label class="form-check-label" for="flexCheckDefault">
           <router-link to="/joinmember">회원가입</router-link>&nbsp;&nbsp;
-          <router-link to="/findPwdPage">아이디 찾기</router-link>&nbsp;&nbsp;
-          <router-link to="/findPwdPage">홈으로</router-link>&nbsp;&nbsp;
+          <router-link to="/findIdPage">아이디 찾기</router-link>&nbsp;&nbsp;
+          <router-link to="/">홈으로</router-link>&nbsp;&nbsp;
         </label>
       </div>
       <button @click="submit()" class="btn btn-primary w-100 py-2" type="submit">Reset-Pwd</button>
@@ -62,12 +62,9 @@ export default {
         .then(({ data }) => {
           if(data!=0){
            
-            alert("test");
             msgState.msg = "초기화된 비밀번호는 " + data + "입니다.";
 
           }else{
-
-            alert("test11");
 
             msgState.msg = "회원정보가 없습니다.";
 
