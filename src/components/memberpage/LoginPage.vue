@@ -29,14 +29,10 @@
 </template>
 
 <script>
-// import store from '@/scripts/store';
-// import axios from 'axios';
+import store from '@/scripts/store';
 import { reactive } from 'vue';
-// import { useRouter } from 'vue-router';
-
-
-// import axios from 'axios';
-// import { reactive } from 'vue';
+import axios from 'axios';
+import router from '@/scripts/router';
 
 export default {
   
@@ -59,42 +55,46 @@ export default {
       }
     })
    
-    // const submit = ()=>{
+    const submit = ()=>{
 
-    //   if (!state.members.memberId) {
-    //     alert('아이디를 입력하시오.');
-    //     return;
-    //   }
+      if (!state.members.memberId) {
+        alert('아이디를 입력하시오.');
+        return;
+      }
 
-    //   if (!state.members.password) {
-    //     alert('비밀번호를 입력하세요');
-    //     return;
-    //   }
+      if (!state.members.password) {
+        alert('비밀번호를 입력하세요');
+        return;
+      }
 
-    //   axios.post("/savemoney/login", state.members).then((response) => {
+      // 성공했을 시 Spring Security SPA유지하기 위한 것
+      const username = state.members.memberId;
+      const password = state.members.password
 
-    //     alert("test");
+      axios.post("/savemoney/login", username, password).then(({response}) => {
 
-    //     if(response.data.msg == null){ // 로그인 성공
+        alert(response);
 
-    //       //store값에 저장하겠다.
-    //       store.commit('setAccount', response.data.memberId);
-    //       sessionStorage.setItem("id",response.data.memberId);
+        if(response.data.msg == null){ // 로그인 성공
 
-    //        router.push('/');
+          //store값에 저장하겠다.  //성공했을 시 username그대로 등록
+          store.commit('setAccount', username);
+          sessionStorage.setItem("id",username);
+
+          router.push('/');
            
-    //     }
-    //     else{
-    //       msgState.msg = response.data.msg;
-    //     }
+        }
+        else{
+          msgState.msg = response.data.msg;
+        }
 
-    //   }).catch(error =>{
-    //     console.error("error", error);
-    //   })
+      }).catch(error =>{
+        console.error("error", error);
+      })
 
-    // }
+    }
 
-    return {state,/** submit,**/ msgState}
+    return {state, submit, msgState}
 
 
   }
