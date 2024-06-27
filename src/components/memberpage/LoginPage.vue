@@ -1,13 +1,13 @@
 <template>
   <div class="form-signin w-100 m-auto">
     <p class="mt-5 mb-3 text-body-secondary"> ※ Press Your Id  &  PassWord  </p>  
-        <form action="/savemoney/login" method="post" class="needs-validation" novalidate>
+        <form @submit.prevent="submit" class="needs-validation" novalidate>
       <div class="form-floating">
-        <input type="text" class="form-control" id="username" name="username" ref="memberIdInput" v-model="state.members.memberId" required>
+        <input type="text" class="form-control" id="username" name="username" v-model="state.members.memberId" required>
         <label for="memberId">ID</label>
       </div>
       <div class="form-floating">
-        <input type="password" class="form-control" id="password" name="password" ref="passwordInput" v-model="state.members.password" required>
+        <input type="password" class="form-control" id="password" name="password" v-model="state.members.password" required>
         <label for="password">Password</label>
       </div>
       <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
@@ -67,26 +67,18 @@ export default {
         return;
       }
 
-      // 성공했을 시 Spring Security SPA유지하기 위한 것
-      const username = state.members.memberId;
-      const password = state.members.password
+      alert(state.members.memberId);
 
-      axios.post("/savemoney/login", username, password).then(({response}) => {
+      axios.post("/savemoney/login", { username: state.members.memberId, password : state.members.password }).then(({data}) => {
 
-        alert(response);
-
-        if(response.data.msg == null){ // 로그인 성공
+        alert(data);
 
           //store값에 저장하겠다.  //성공했을 시 username그대로 등록
-          store.commit('setAccount', username);
-          sessionStorage.setItem("id",username);
+          store.commit('setAccount', data);
+          sessionStorage.setItem("id",data);
 
           router.push('/');
-           
-        }
-        else{
-          msgState.msg = response.data.msg;
-        }
+        
 
       }).catch(error =>{
         console.error("error", error);
