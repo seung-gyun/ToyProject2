@@ -1,8 +1,8 @@
 import MainPage from '@/components/MainPage.vue'
-import LoginPage from '@/components/memberpage/LoginPage.vue'
-import FindPwdPage from '@/components/memberpage/FindPwdPage.vue'
-import JoinMemberPage from '@/components/memberpage/JoinMemberPage.vue'
-import FindIdPage from '@/components/memberpage/FindIdPage.vue'
+import LoginPage from '@/components/aboutmember/LoginPage.vue'
+import FindPwdPage from '@/components/aboutmember/FindPwdPage.vue'
+import JoinMemberPage from '@/components/aboutmember/JoinMemberPage.vue'
+import FindIdPage from '@/components/aboutmember/FindIdPage.vue'
 import NoticePage from '@/components/aboutnotice/NoticePage.vue'
 import {createRouter, createWebHistory} from 'vue-router'
 

@@ -15,8 +15,8 @@
         </div>
         <div class="offcanvas-body">
           <ul class="navbar-nav flex-grow-1 justify-content-between">
-            <router-link to="/"><li class="nav" ><a class="nav-link" href="#">Home</a></li></router-link>
-            <li class="nav-item"><a class="nav-link" href="#">
+            <a  @click="home()"><li class="nav"><a class="nav-link" href="#">Home</a></li></a>
+            <a></a><li class="nav-item"><a class="nav-link" href="#">
               <svg class="bi" width="24" height="24"><use xlink:href="#aperture"></use></svg>
             </a></li>
             <router-link to="/noticePage"><li class="nav-item"><a class="nav-link">Notice</a></li></router-link>
@@ -59,7 +59,13 @@ export default {
 
     }
 
-    return { logout, store};
+    const home = ()=>{
+      axios.get("/savemoney/gohome").then(()=>{
+        router.push("/");
+      })
+    }
+
+    return { logout, store, home};
 
   }
 

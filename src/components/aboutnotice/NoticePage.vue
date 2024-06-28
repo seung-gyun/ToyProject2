@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import router from '@/scripts/router';
 import axios from 'axios';
 import { reactive } from 'vue';
 
@@ -40,12 +41,17 @@ export default {
     const state = reactive({
       boardList: []
     });
+  
 
     // 데이터 가져오기
     axios.get("/savemoney/board").then(( {data} ) => {
       
       state.boardList = data;
             
+    })
+    .catch(() => {
+        alert("로그인이 필요한 페이지입니다.")
+        router.push("/login");
     });
 
     // setup 함수에서 반환할 내용 정의

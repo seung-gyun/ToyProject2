@@ -69,11 +69,19 @@ export default {
 
       axios.post("/savemoney/login", { username: state.members.memberId, password : state.members.password }).then(({data}) => {
 
-          //store값에 저장하겠다.  //성공했을 시 username그대로 등록
-          store.commit('setAccount', data||0);
-          sessionStorage.setItem("id",data);
 
-          router.push('/');
+          //store값에 저장하겠다.  //성공했을 시 username그대로 등록
+          store.commit('setAccount', data.username||0);
+          sessionStorage.setItem("id",data.username);
+
+          if(data.redirectUrl==""){
+            router.push('/');
+          }else if(data.redirectUrl=="/board"){
+
+            router.push('/noticePage');
+            
+          }
+            
         
 
       }).catch(error =>{
