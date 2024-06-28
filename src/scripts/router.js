@@ -3,7 +3,9 @@ import LoginPage from '@/components/memberpage/LoginPage.vue'
 import FindPwdPage from '@/components/memberpage/FindPwdPage.vue'
 import JoinMemberPage from '@/components/memberpage/JoinMemberPage.vue'
 import FindIdPage from '@/components/memberpage/FindIdPage.vue'
+import NoticePage from '@/components/aboutnotice/NoticePage.vue'
 import {createRouter, createWebHistory} from 'vue-router'
+
 
 
 const routes = [
@@ -12,6 +14,7 @@ const routes = [
     {path: '/joinmember', component:JoinMemberPage},
     {path: '/findPwdPage', component:FindPwdPage},
     {path: '/findIdPage', component:FindIdPage},
+    {path: '/noticePage', component:NoticePage},
 ]
 
 const router = createRouter({

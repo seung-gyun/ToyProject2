@@ -19,7 +19,7 @@
             <li class="nav-item"><a class="nav-link" href="#">
               <svg class="bi" width="24" height="24"><use xlink:href="#aperture"></use></svg>
             </a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Tour</a></li>
+            <router-link to="/noticePage"><li class="nav-item"><a class="nav-link">Notice</a></li></router-link>
             <li class="nav-item"><a class="nav-link" href="#">Product</a></li>
             <li class="nav-item"><a class="nav-link" href="#">Features</a></li>
             <li class="nav-item"><a class="nav-link" href="#">Enterprise</a></li>
@@ -54,7 +54,7 @@ export default {
       })
 
       store.commit('setAccount', 0);
-      sessionStorage.removeItem("memberId");
+      sessionStorage.removeItem("id");
       router.push("/");
 
     }
