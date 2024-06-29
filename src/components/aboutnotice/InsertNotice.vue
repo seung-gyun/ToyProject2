@@ -4,24 +4,30 @@
     <div class="form-floating">
       <ul>
         <!-- Header row for column names -->
-        <li class="board-header">
-          <span class="board-info-header">번호</span>
-          <span class="board-info-header">제목</span>
-          <span class="board-info-header">작성자</span>
-          <span class="board-info-header">날짜</span>
-          <span class="board-info-header">조회수</span>
+        <li class="board-header member">
+          <span class="board-info-header memberId">작성자</span>
         </li>
 
-        <!-- Data rows -->
-        <li v-for="(item, idx) in state.boardList" :key="idx" class="board-item">
-          <span class="board-info">{{ item.boardId }}</span>
-          <span class="board-info"><a href="#" @click.prevent="goToDetail( item.boardId )">{{ item.title }}</a></span>
-          <span class="board-info">{{ item.memberId }}</span>
-          <span class="board-info">{{ item.createdDate }}</span>
-          <span class="board-info">{{ item.viewCount }}</span>
+        <li class="board-item">
+          <input type="text" class="board-info" readonly="readonly" v-model="store.state.account.memberId">
         </li>
+
+        <li class="board-header">
+          <span class="board-info-header memberid" >제목</span>
+        </li>
+
+        <li class="board-item">
+          <input type="text" class="board-info" v-model="notice.title" >
+        </li>
+   
+        <li class="board-header">
+          <textarea class="board-info" v-model="notice.content"></textarea>
+        </li>
+
+        
+
       </ul>
-      <button class="btn btn-primary w-100 py-2" @click.prevent="register()">GoTo Register notice</button>
+      <button class="btn btn-primary w-100 py-2" @click.prevent="registerNotice()">Register notice</button>
     </div>
 
     <!-- <button @click="submit()" class="btn btn-primary w-100 py-2" type="submit">Find-Id</button> -->
@@ -31,53 +37,44 @@
 </template>
 
 <script>
+
 import router from '@/scripts/router';
 import axios from 'axios';
 import { reactive } from 'vue';
 import { useStore } from 'vuex';
 
 export default {
-  name: 'NoticePage',
+  name: 'InsertNotice',
   setup() {
+    // Vue 3 Composition API setup
+    
+    const notice = reactive({
+      memberId : '',
+      title : '',
+      content : ''
+    });
 
     const store = useStore();
 
-    // state 객체 정의
-    const state = reactive({
-      boardList: []
-    });
-  
+    const registerNotice =()=>{
 
-    // 데이터 가져오기
-    axios.get("/savemoney/board").then(( {data} ) => {
-      
-      state.boardList = data;
-            
+      alert("test");
+
+    notice.memberId = store.state.account.memberId;
+
+    axios.post("/savemoney/registernotice", { memberId: notice.memberId, title: notice.title, content: notice.content}).then(()=>{
+
+      alert("test");
+
+      router.push("/noticePage");
+
     })
-    .catch(() => {
-        alert("로그인이 필요한 페이지입니다.")
-        router.push("/login");
-    });
 
-    const register =()=>{
+}
 
-      axios.get("/savemoney/goregister").then(()=>{
+    return {store, registerNotice, notice};
 
-        router.push("/insertNotice");
-
-      })
-
-    }
-
-    const goToDetail=(data)=>{
-
-      router.push({ path: '/detailNotice', query: { boardid: data } });
-
-    }
-
-    // setup 함수에서 반환할 내용 정의
-    return { state, register, store, goToDetail};
-  }
+  },
 };
 </script>
 
@@ -88,7 +85,7 @@ body {
 }
 
 .form-signin {
-  max-width: 2000px;
+  max-width: 1000px;
   padding: 5rem;
 }
 
@@ -145,7 +142,11 @@ li{
 
 .board-info {
   flex: 1; /* 각 데이터 셀을 동일하게 넓게 설정 */
-  text-align: center; /* 데이터 텍스트 가운데 정렬 */
+  text-align: left; /* 데이터 텍스트 가운데 정렬 */
+}
+
+textarea{
+  height: 500px;
 }
 
 </style>

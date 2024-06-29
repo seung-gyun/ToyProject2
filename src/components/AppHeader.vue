@@ -25,7 +25,7 @@
             <li class="nav-item"><a class="nav-link" href="#">Enterprise</a></li>
             <li class="nav-item"><a class="nav-link" href="#">Support</a></li>
             <router-link to="/login" v-if="!store.state.account.memberId"><li class="nav"><a class="nav-link" href="#">Login</a></li></router-link>
-            <a  @click="logout()" v-else><li class="nav"><a class="nav-link" href="#">Logout</a></li></a>
+            <a  @click.prevent="logout()" v-else><li class="nav"><a class="nav-link" href="#">Logout</a></li></a>
             <!-- <li class="nav-item"><a class="nav-link" href="#">
               <svg class="bi" width="24" height="24"><use xlink:href="#cart"></use></svg>
             </a></li> -->

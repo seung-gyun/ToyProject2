@@ -12,7 +12,7 @@
       </div>
       <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
       <!-- <button type="submit" class="btn btn-primary">Login</button> -->
-    </form>
+    </form><br>
       <div class="msg">
         {{ msgState.msg }}
       </div>
@@ -80,6 +80,8 @@ export default {
 
             router.push('/noticePage');
             
+          }else{
+            msgState.msg = "입력하신 정보가 맞지 않습니다.";
           }
             
         
