@@ -64,8 +64,6 @@ export default {
 
     axios.post("/savemoney/registernotice", { memberId: notice.memberId, title: notice.title, content: notice.content}).then(()=>{
 
-      alert("test");
-
       router.push("/noticePage");
 
     })
