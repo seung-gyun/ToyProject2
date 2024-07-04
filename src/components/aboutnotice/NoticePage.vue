@@ -104,13 +104,13 @@ export default {
     const register = () => {
       axios.get("/savemoney/goregister")
         .then(() => {
-          router.push("/insertNotice");
+          router.push("/insertionnotice");
         });
     };
 
     const goToDetail=(data)=>{
 
-      router.push({ path: '/detailNotice', query: { boardid: data } });
+      router.push({ path: '/detailnotice', query: { boardid: data } });
 
     }
 

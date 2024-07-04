@@ -9,31 +9,25 @@
         </li>
 
         <li class="board-item">
-          <input type="text" class="board-info" readonly="readonly" v-model="state.memberId">
+          <input type="text" class="board-info" readonly="readonly" v-model="store.state.account.memberId">
         </li>
 
         <li class="board-header">
           <span class="board-info-header memberid" >제목</span>
         </li>
-     
 
         <li class="board-item">
-          <input v-if="state.memberId == store.state.account.memberId" type="text" class="board-info"  v-model="state.title">
-          <input v-else type="text" class="board-info" readonly="readonly"  v-model="state.title">
+          <input type="text" class="board-info" v-model="notice.title" >
         </li>
    
         <li class="board-header">
-          <textarea v-if="state.memberId == store.state.account.memberId" class="board-info"  v-model="state.content"></textarea>
-          <textarea v-else class="board-info"  v-model="state.content" readonly="readonly"></textarea>
+          <textarea class="board-info" v-model="notice.content"></textarea>
         </li>
 
         
 
       </ul>
-      
-      <button v-if="state.memberId == store.state.account.memberId" class="btn btn-primary w-100 py-2" @click.prevent="updateNotice()">Update notice</button><br/><br/>
-      <button v-if="state.memberId == store.state.account.memberId" class="btn btn-primary w-100 py-2" @click.prevent="deleteNotice()">Delete notice</button>
-      <!-- <button class="btn btn-primary w-100 py-2" @click.prevent="registerNotice()">Register notice</button> -->
+      <button class="btn btn-primary w-100 py-2" @click.prevent="registerNotice()">Register notice</button>
     </div>
 
     <!-- <button @click="submit()" class="btn btn-primary w-100 py-2" type="submit">Find-Id</button> -->
@@ -43,74 +37,41 @@
 </template>
 
 <script>
+
 import router from '@/scripts/router';
 import axios from 'axios';
 import { reactive } from 'vue';
 import { useStore } from 'vuex';
 
-// import axios from 'axios';
-// import { onMounted } from 'vue';
-// import { useRoute } from 'vue-router';
-
-// import router from '@/scripts/router';
-// import axios from 'axios';
-// import { reactive } from 'vue';
-// import { useStore } from 'vuex';
-
 export default {
-  name: 'DetailNotice',
-  props: {
-    boardid: {
-      type: String,
-      required: true
-    }
-  },
-
-  setup(props) {
+  name: 'InsertNotice',
+  setup() {
+    // Vue 3 Composition API setup
+    
+    const notice = reactive({
+      memberId : '',
+      title : '',
+      content : ''
+    });
 
     const store = useStore();
 
-    const state = reactive({
-      memberId : "",
-      title : "",
-      content : ""
-    })
+    const registerNotice =()=>{
 
-    axios.get("/savemoney/gotodetail", {params : {prors : props.boardid, memberId : store.state.account.memberId}} ).then(({data})=>{
+    notice.memberId = store.state.account.memberId;
 
-      state.memberId = data.memberId;
-      state.title = data.title;
-      state.content = data.content;
+    axios.post("/savemoney/registernotice", { memberId: notice.memberId, title: notice.title, content: notice.content}).then(()=>{
+
+      router.push("/noticePage");
 
     })
 
-    //수정
-    const updateNotice =()=>{
+}
 
-        axios.patch("/savemoney/updatenotice/boardid="+props.boardid, { memberId: state.memberId, title: state.title, content: state.content}).then(()=>{
+    return {store, registerNotice, notice};
 
-          router.push("/noticepage");
-
-        })
-
-    }
-
-    //삭제
-    const deleteNotice =()=>{
-
-        axios.delete("/savemoney/deletenotice/boardid="+props.boardid).then(()=>{
-
-        router.push("/noticepage");
-
-      })
-
-    }
-
-    return {state, store, updateNotice, deleteNotice};
-
-  }
+  },
 };
-
 </script>
 
 <style scoped>

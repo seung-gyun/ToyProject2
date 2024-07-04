@@ -18,9 +18,9 @@
       </div>
       <div class="form-check text-start my-3">
         <label class="form-check-label" for="flexCheckDefault">
-          <router-link to="/joinmember">회원가입</router-link>&nbsp;&nbsp;
-          <router-link to="/findIdPage">아이디 찾기</router-link>&nbsp;&nbsp;
-          <router-link to="/findPwdPage">비밀번호 찾기</router-link>&nbsp;&nbsp;
+          <router-link to="/registrationmember">회원가입</router-link>&nbsp;&nbsp;
+          <router-link to="/serachidpage">아이디 찾기</router-link>&nbsp;&nbsp;
+          <router-link to="/serachpwdpage">비밀번호 찾기</router-link>&nbsp;&nbsp;
         </label>
       </div>
       
