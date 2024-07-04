@@ -23,9 +23,10 @@
             <li class="nav-item"><a class="nav-link" href="#">Product</a></li>
             <li class="nav-item"><a class="nav-link" href="#">Features</a></li>
             <li class="nav-item"><a class="nav-link" href="#">Enterprise</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Support</a></li>
+            
             <router-link to="/login" v-if="!store.state.account.memberId"><li class="nav"><a class="nav-link" href="#">Login</a></li></router-link>
             <a  @click.prevent="logout()" v-else><li class="nav"><a class="nav-link" href="#">Logout</a></li></a>
+            <a  @click.prevent="myPage()" v-if = "store.state.account.memberId"><li class="nav"><a class="nav-link" href="#">my Page</a></li></a>
             <!-- <li class="nav-item"><a class="nav-link" href="#">
               <svg class="bi" width="24" height="24"><use xlink:href="#cart"></use></svg>
             </a></li> -->
@@ -47,15 +48,9 @@ export default {
   name : 'AppHeader',
   setup(){
 
-    const logout = ()=>{
+    const myPage = ()=>{
 
-      axios.post("/savemoney/logout").then(()=>{
-
-      })
-
-      store.commit('setAccount', 0);
-      sessionStorage.removeItem("id");
-      router.push("/");
+      router.push({ path: '/savemoney/mypage', query: { memberId: store.state.account.memberId } });
 
     }
 
@@ -65,7 +60,18 @@ export default {
       })
     }
 
-    return { logout, store, home};
+    const logout = async ()=>{
+
+      await axios.post("/savemoney/logout");
+
+      store.commit('setAccount', 0);
+      sessionStorage.removeItem("id");
+      router.push("/");
+
+    }
+
+    
+    return { store, home, myPage, logout};
 
   }
 
