@@ -41,7 +41,6 @@
 import router from '@/scripts/router';
 import store from '@/scripts/store';
 import axios from 'axios';
-// import { computed } from 'vue';
 
 export default {
   

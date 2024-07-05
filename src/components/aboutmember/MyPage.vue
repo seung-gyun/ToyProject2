@@ -10,7 +10,8 @@
         <input type="password" class="form-control" id="password" v-model="state.member.memberPwd" name="password" required>
         <label for="password">Password</label>
       </div>
-      <button @click.prevent="updateMember()" class="btn btn-primary w-100 py-2" type="submit">Update Member</button>
+      <button @click.prevent="updateMember()" class="btn btn-primary w-100 py-2" type="submit">Update Member</button><br/><br/>
+      <button @click.prevent="unregisterMember()" class="btn btn-primary w-100 py-2" type="submit">Member Unregister</button>
       <!-- <button type="submit" class="btn btn-primary">Login</button> -->
     </form><br>
       <div class="msg">
@@ -22,6 +23,7 @@
 </template>
 
 <script>
+import router from '@/scripts/router';
 import store from '@/scripts/store';
 import axios from 'axios';
 import { reactive } from 'vue';
@@ -49,22 +51,41 @@ export default {
       
     });
 
+    const unregisterMember = () =>{
+
+      if(confirm("정말 삭제하시겠습니까?\n삭제 시 복구 불가능합니다."))
+        axios.delete("/savemoney/mypage/memberdelete="+state.member.memberId).then(()=>{
+           
+          store.commit('setAccount', 0); // meberId 없애기
+          sessionStorage.removeItem("id"); // id 없애기
+          router.push("/");
+          
+          router.push("/");
+        })
+        .catch((error) => {
+
+          console.error(error);
+
+        })
+
+    }
+
     const updateMember = () =>{
 
       axios.patch("/savemoney/mypage/id="+state.member.memberId ,state.member).then(()=>{
 
-        msgState.msg = "비밀번호 변경이 완료되었습니다.";
+      msgState.msg = "비밀번호 변경이 완료되었습니다.";
 
-      })
-      .catch((error) => {
+    })
+    .catch((error) => {
 
-        console.error(error);
+      console.error(error);
 
-      })
+    })
 
     }
 
-    return {store, state,msgState, updateMember}
+    return {store, state,msgState, updateMember, unregisterMember}
 
   }
 
