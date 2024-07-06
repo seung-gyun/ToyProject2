@@ -22,11 +22,13 @@
             <router-link to="/noticepage"><li class="nav-item"><a class="nav-link">Notice</a></li></router-link>
             <li class="nav-item"><a class="nav-link" href="#">Product</a></li>
             <li class="nav-item"><a class="nav-link" href="#">Features</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Enterprise</a></li>
             
+            
+            
+            <a  @click.prevent="myNotice()" v-if = "store.state.account.memberId"><li class="nav"><a class="nav-link" href="#">my Notice</a></li></a>
+            <a  @click.prevent="myPage()" v-if = "store.state.account.memberId"><li class="nav"><a class="nav-link" href="#">my Page</a></li></a>
             <router-link to="/login" v-if="!store.state.account.memberId"><li class="nav"><a class="nav-link" href="#">Login</a></li></router-link>
             <a  @click.prevent="logout()" v-else><li class="nav"><a class="nav-link" href="#">Logout</a></li></a>
-            <a  @click.prevent="myPage()" v-if = "store.state.account.memberId"><li class="nav"><a class="nav-link" href="#">my Page</a></li></a>
             <!-- <li class="nav-item"><a class="nav-link" href="#">
               <svg class="bi" width="24" height="24"><use xlink:href="#cart"></use></svg>
             </a></li> -->
@@ -53,6 +55,12 @@ export default {
 
     }
 
+    const myNotice = ()=>{
+
+      router.push({ path: '/savemoney/mynotice', query: { memberId: store.state.account.memberId } });
+
+    }
+
     const home = ()=>{
       axios.get("/savemoney/gohome").then(()=>{
         router.push("/");
@@ -70,7 +78,7 @@ export default {
     }
 
     
-    return { store, home, myPage, logout};
+    return { store, home, myPage, myNotice, logout};
 
   }
 
