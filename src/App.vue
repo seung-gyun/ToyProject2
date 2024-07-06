@@ -25,10 +25,7 @@ export default {
     
     const check = ()=>{
       axios.get("/savemoney/check").then(({data})=>{
-          
-          // store.commit('setAccount', {memberId: 0, remainingTime : 0});
           store.commit('setAccount', data || 0);
-      
       })
       
     };

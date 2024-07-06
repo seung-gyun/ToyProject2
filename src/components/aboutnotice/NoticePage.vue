@@ -71,11 +71,14 @@ export default {
 
     // Function to fetch data for a specific page
     const fetchData = () => {
-      axios.get('/savemoney/board', { params: { page: page.currentPage, size: page.pageSize } })
+
+      axios.get('/savemoney/board/'+page.currentPage)
         .then(({ data }) => {
           
           state.boardList = data.boardList; // Assuming data.content is your array of items
           page.totalPage = Math.ceil(data.totalPage/10); // Assuming data.totalElements is the total count of items
+
+          router.push('/noticePage?currentPage='+page.currentPage);
 
           console.log(page.totalPage);
 

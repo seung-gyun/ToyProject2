@@ -15,13 +15,13 @@ import {createRouter, createWebHistory} from 'vue-router'
 
 const routes = [
     {path: '/', component:MainPage},
-    {path: '/savemoney/mypage', component:MyPage, props: route => ({ memberId: route.query.memberId })},
-    {path: '/savemoney/mynotice', component:MyNotice, props: route => ({ memberId: route.query.memberId })},
+    {path: '/mypage', component:MyPage, props: route => ({ memberId: route.query.memberId })},
+    {path: '/mynotice', component:MyNotice, props: route => ({ memberId: route.query.memberId, currentPage : route.query.currentPage })},
     {path: '/login', component:LoginPage},
     {path: '/registrationmember', component:RegistrationMember},
     {path: '/serachpwdpage', component:SerachPwdPage},
     {path: '/serachidpage', component:SerachIdPage},
-    {path: '/noticepage', component:NoticePage},
+    {path: '/noticepage', component:NoticePage, props: route => ({ currentPage : route.query.currentPage })},
     {path: '/insertionnotice', component:InsertionNotice},
     {path: '/detailnotice', component: DetailNotice, props: route => ({ boardid: route.query.boardid }) }
 ]

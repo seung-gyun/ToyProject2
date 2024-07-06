@@ -19,7 +19,8 @@
             <a></a><li class="nav-item"><a class="nav-link" href="#">
               <svg class="bi" width="24" height="24"><use xlink:href="#aperture"></use></svg>
             </a></li>
-            <router-link to="/noticepage"><li class="nav-item"><a class="nav-link">Notice</a></li></router-link>
+            <!-- <router-link to="/noticepage"><li class="nav-item"><a class="nav-link">Notice</a></li></router-link> -->
+            <a  @click="goToNotice()"><li class="nav"><a class="nav-link" href="#">Notice</a></li></a>
             <li class="nav-item"><a class="nav-link" href="#">Product</a></li>
             <li class="nav-item"><a class="nav-link" href="#">Features</a></li>
             
@@ -51,13 +52,13 @@ export default {
 
     const myPage = ()=>{
 
-      router.push({ path: '/savemoney/mypage', query: { memberId: store.state.account.memberId } });
+      router.push({ path: '/mypage', query: { memberId: store.state.account.memberId } });
 
     }
 
     const myNotice = ()=>{
 
-      router.push({ path: '/savemoney/mynotice', query: { memberId: store.state.account.memberId } });
+      router.push({ path: '/mynotice', query: { memberId: store.state.account.memberId , currentPage : 1} });
 
     }
 
@@ -65,6 +66,12 @@ export default {
       axios.get("/savemoney/gohome").then(()=>{
         router.push("/");
       })
+    }
+
+    const goToNotice = ()=>{
+
+      router.push({ path: '/noticepage', query: {currentPage : 1} });
+
     }
 
     const logout = async ()=>{
@@ -78,7 +85,7 @@ export default {
     }
 
     
-    return { store, home, myPage, myNotice, logout};
+    return { store, home, myPage, myNotice, logout, goToNotice};
 
   }
 

@@ -57,7 +57,11 @@ export default {
     memberId: {
       type: String,
       required: true
-    }
+    },
+    currentPage: {
+      type: Number,
+      required: true
+    },    
   },
   setup(props){
 
@@ -81,6 +85,8 @@ export default {
           state.boardList = data.boardList; // Assuming data.content is your array of items
           page.totalPage = Math.ceil(data.totalPage/10); // Assuming data.totalElements is the total count of items
 
+          router.push('/mynotice?memberId='+props.memberId+'&currentPage='+page.currentPage);
+
           console.log(page.totalPage);
           
 
@@ -91,6 +97,7 @@ export default {
     };
 
     onMounted(() => {
+
       fetchData(); // 컴포넌트가 마운트된 후 fetchData 함수 실행
     });
     
