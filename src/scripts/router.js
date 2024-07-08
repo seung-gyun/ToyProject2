@@ -41,7 +41,6 @@ router.beforeEach((to, from, next) => {
     const isAuthenticated = Boolean(store.state.account.memberId);
     const AuthenticatedList = ['/mynotice', '/mypage'];
     
-
     if (AuthenticatedList.includes(to.path)) {
         if (!isAuthenticated) {
             // 인증되지 않은 경우 로그인 페이지로 리디렉션

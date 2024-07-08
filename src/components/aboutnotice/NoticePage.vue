@@ -47,6 +47,7 @@
 </template>
 
 <script>
+import axiosInstance from '@/scripts/commonAxios';
 import router from '@/scripts/router';
 import axios from 'axios';
 import { reactive } from 'vue';
@@ -72,7 +73,7 @@ export default {
     // Function to fetch data for a specific page
     const fetchData = () => {
 
-      axios.get('/savemoney/board/'+page.currentPage)
+      axiosInstance.get('/savemoney/board/'+page.currentPage)
         .then(({ data }) => {
           
           state.boardList = data.boardList; // Assuming data.content is your array of items
@@ -83,10 +84,9 @@ export default {
           console.log(page.totalPage);
 
         })
-        .catch(() => {
+        .catch((error) => {
 
-          alert("로그인이 필요한 화면입니다.");
-          router.push("/login");
+          console.log(error);
           
         });
     };

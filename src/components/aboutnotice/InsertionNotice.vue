@@ -39,9 +39,9 @@
 <script>
 
 import router from '@/scripts/router';
-import axios from 'axios';
 import { reactive } from 'vue';
 import { useStore } from 'vuex';
+import axiosInstance from '@/scripts/commonAxios';
 
 export default {
   name: 'InsertNotice',
@@ -60,7 +60,7 @@ export default {
 
     notice.memberId = store.state.account.memberId;
 
-    axios.post("/savemoney/registernotice", { memberId: notice.memberId, title: notice.title, content: notice.content}).then(()=>{
+    axiosInstance.post("/savemoney/registernotice", { memberId: notice.memberId, title: notice.title, content: notice.content}).then(()=>{
 
       router.push("/noticePage");
 

@@ -44,7 +44,6 @@
 
 <script>
 import router from '@/scripts/router';
-import axios from 'axios';
 import { reactive } from 'vue';
 import { useStore } from 'vuex';
 
@@ -53,7 +52,7 @@ import { useStore } from 'vuex';
 // import { useRoute } from 'vue-router';
 
 // import router from '@/scripts/router';
-// import axios from 'axios';
+import axios from 'axios';
 // import { reactive } from 'vue';
 // import { useStore } from 'vuex';
 
@@ -87,7 +86,7 @@ export default {
     //수정
     const updateNotice =()=>{
 
-        axios.patch("/savemoney/updatenotice/boardid="+props.boardid, { memberId: state.memberId, title: state.title, content: state.content}).then(()=>{
+      axios.patch("/savemoney/updatenotice/boardid="+props.boardid, { memberId: state.memberId, title: state.title, content: state.content}).then(()=>{
 
           router.push("/noticepage");
 
@@ -98,7 +97,7 @@ export default {
     //삭제
     const deleteNotice =()=>{
 
-        axios.delete("/savemoney/deletenotice/boardid="+props.boardid).then(()=>{
+      axios.delete("/savemoney/deletenotice/boardid="+props.boardid).then(()=>{
 
         router.push("/noticepage");
 
