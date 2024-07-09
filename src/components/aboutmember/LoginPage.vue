@@ -41,7 +41,6 @@ export default {
   setup(){
 
     // const router = useRouter();
-
     const state = reactive({
       members : {
         memberId : "",
@@ -91,6 +90,7 @@ export default {
       })
 
     }
+
 
     return {state, submit, msgState}
 

@@ -4,7 +4,7 @@ import router from './router';
 
 // Axios 인스턴스 생성
 const axiosInstance = axios.create({
-    baseURL: '/savemoney/board/', // 기본 URL 설정
+    baseURL: '/savemoney/', // 기본 URL 설정
 });
 
 // Response Interceptor: 요청 성공 후 실행됨

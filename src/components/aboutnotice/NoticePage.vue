@@ -73,7 +73,7 @@ export default {
     // Function to fetch data for a specific page
     const fetchData = () => {
 
-      axiosInstance.get('/savemoney/board/'+page.currentPage)
+      axiosInstance.get('board/'+page.currentPage)
         .then(({ data }) => {
           
           state.boardList = data.boardList; // Assuming data.content is your array of items
