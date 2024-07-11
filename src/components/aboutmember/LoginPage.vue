@@ -61,10 +61,10 @@ export default {
         return;
       }
 
-      if (!state.members.password) {
-        alert('비밀번호를 입력하세요');
-        return;
-      }
+      // if (!state.members.password) {
+      //   alert('비밀번호를 입력하세요');
+      //   return;
+      // }
 
       axios.post("/savemoney/login", { username: state.members.memberId, password : state.members.password }).then(({data}) => {
 

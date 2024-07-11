@@ -23,7 +23,10 @@
         </li>
    
         <li class="board-header">
-          <textarea v-if="state.memberId == store.state.account.memberId" class="board-info"  v-model="state.content"></textarea>
+          <textarea v-if="state.memberId == store.state.account.memberId" class="board-info"  v-model="state.content">
+            
+
+          </textarea>
           <textarea v-else class="board-info"  v-model="state.content" readonly="readonly"></textarea>
         </li>
 

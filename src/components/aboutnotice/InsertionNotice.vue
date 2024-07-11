@@ -60,7 +60,7 @@ export default {
 
     notice.memberId = store.state.account.memberId;
 
-    axiosInstance.post("/savemoney/registernotice", { memberId: notice.memberId, title: notice.title, content: notice.content}).then(()=>{
+    axiosInstance.post("/registernotice", { memberId: notice.memberId, title: notice.title, content: notice.content}).then(()=>{
 
       router.push("/noticePage");
 
